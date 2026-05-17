@@ -1,0 +1,17 @@
+{
+  "name": "Hata Günlüğü LGS 2027",
+  "short_name": "HataGünlüğü",
+  "description": "LGS 2027 Hazırlık Hata Takip Defteri",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#059669",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

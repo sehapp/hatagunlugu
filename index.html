@@ -12,10 +12,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { sans: ['Outfit', 'sans-serif'] },
                     colors: { 
+                        white: 'rgb(var(--c-white) / <alpha-value>)',
+                        slate: {
+                            50: 'rgb(var(--c-slate-50) / <alpha-value>)',
+                            100: 'rgb(var(--c-slate-100) / <alpha-value>)',
+                            200: 'rgb(var(--c-slate-200) / <alpha-value>)',
+                            300: 'rgb(var(--c-slate-300) / <alpha-value>)',
+                            400: 'rgb(var(--c-slate-400) / <alpha-value>)',
+                            500: 'rgb(var(--c-slate-500) / <alpha-value>)',
+                            600: 'rgb(var(--c-slate-600) / <alpha-value>)',
+                            700: 'rgb(var(--c-slate-700) / <alpha-value>)',
+                            800: 'rgb(var(--c-slate-800) / <alpha-value>)',
+                            900: 'rgb(var(--c-slate-900) / <alpha-value>)',
+                        },
                         primary: { 
                             50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7', 
                             400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857', 
@@ -37,7 +51,35 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <style type="text/tailwindcss">
-        @layer base { body { @apply bg-white text-slate-900 antialiased; } }
+        @layer base {
+            :root {
+                --c-white: 255 255 255;
+                --c-slate-50: 248 250 252;
+                --c-slate-100: 241 245 249;
+                --c-slate-200: 226 232 240;
+                --c-slate-300: 203 213 225;
+                --c-slate-400: 148 163 184;
+                --c-slate-500: 100 116 139;
+                --c-slate-600: 71 85 105;
+                --c-slate-700: 51 65 85;
+                --c-slate-800: 30 41 59;
+                --c-slate-900: 15 23 42;
+            }
+            .dark {
+                --c-white: 11 17 33;
+                --c-slate-50: 19 27 47;
+                --c-slate-100: 30 41 59;
+                --c-slate-200: 51 65 85;
+                --c-slate-300: 71 85 105;
+                --c-slate-400: 148 163 184;
+                --c-slate-500: 203 213 225;
+                --c-slate-600: 226 232 240;
+                --c-slate-700: 241 245 249;
+                --c-slate-800: 248 250 252;
+                --c-slate-900: 255 255 255;
+            }
+            body { @apply bg-white text-slate-900 antialiased transition-colors duration-300; }
+        }
         @layer components {
             .glass-card { @apply bg-white border border-slate-100 shadow-xl rounded-[1.5rem]; }
             .btn-primary { @apply bg-primary-600 hover:bg-primary-700 text-white font-black py-3 px-8 rounded-2xl transition-all flex items-center gap-2 shadow-lg active:scale-95 text-sm; }
@@ -56,20 +98,20 @@
 
         const CURRICULUM = {
             '8': [
-                { id: 'turkce', name: 'Türkçe', icon: 'BookOpen', color: 'text-emerald-600', bg: 'bg-emerald-50', units: ['Sözcükte Anlam', 'Cümlede Anlam', 'Parçada Anlam', 'Ses Bilgisi', 'Yazım Kuralları', 'Noktalama İşaretleri', 'Fiilimsiler', 'Cümlenin Ögeleri', 'Cümle Türleri', 'Anlatım Bozuklukları', 'Fiilde Çatı', 'Söz Sanatları', 'Metin Türleri', 'Sözel Mantık'] },
-                { id: 'matematik', name: 'Matematik', icon: 'Calculator', color: 'text-indigo-500', bg: 'bg-indigo-50', units: ['Çarpanlar ve Katlar', 'Üslü İfadeler', 'Kareköklü İfadeler', 'Veri Analizi', 'Olasılık', 'Cebirsel İfadeler', 'Doğrusal Denklemler', 'Eşitsizlikler', 'Üçgenler', 'Eşlik ve Benzerlik', 'Dönüşüm Geometrisi', 'Geometrik Cisimler'] },
-                { id: 'fen', name: 'Fen Bilimleri', icon: 'FlaskConical', color: 'text-teal-500', bg: 'bg-teal-50', units: ['Mevsimlerin Oluşumu ve İklim', 'DNA ve Genetik Kod', 'Basınç', 'Madde ve Endüstri', 'Basit Makineler', 'Enerji Dönüşümleri', 'Elektrik Yükleri'] },
-                { id: 'inkilap', name: 'İnkılap Tarihi', icon: 'Landmark', color: 'text-orange-500', bg: 'bg-orange-50', units: ['Bir Kahraman Doğuyor', 'Milli Uyanış', 'Ya İstiklal Ya Ölüm', 'Atatürkçülük', 'Demokratikleşme Çabaları', 'Dış Politikası', 'Atatürk’ün Ölümü'] },
-                { id: 'din', name: 'Din Kültürü', icon: 'Moon', color: 'text-rose-500', bg: 'bg-rose-50', units: ['Kader İnancı', 'Zekat ve Sadaka', 'Din ve Hayat', 'Hz. Muhammed’in Örnekliği', 'Kur’an-ı Kerim Özellikleri'] },
-                { id: 'ingilizce', name: 'İngilizce', icon: 'Languages', color: 'text-cyan-500', bg: 'bg-cyan-50', units: ['Friendship', 'Teen Life', 'In The Kitchen', 'On The Phone', 'The Internet', 'Adventures', 'Tourism', 'Chores', 'Science', 'Natural Forces'] }
+                { id: 'turkce', name: 'Türkçe', icon: 'BookOpen', color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/20', units: ['Sözcükte Anlam', 'Cümlede Anlam', 'Parçada Anlam', 'Ses Bilgisi', 'Yazım Kuralları', 'Noktalama İşaretleri', 'Fiilimsiler', 'Cümlenin Ögeleri', 'Cümle Türleri', 'Anlatım Bozuklukları', 'Fiilde Çatı', 'Söz Sanatları', 'Metin Türleri', 'Sözel Mantık'] },
+                { id: 'matematik', name: 'Matematik', icon: 'Calculator', color: 'text-indigo-500 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-500/20', units: ['Çarpanlar ve Katlar', 'Üslü İfadeler', 'Kareköklü İfadeler', 'Veri Analizi', 'Olasılık', 'Cebirsel İfadeler', 'Doğrusal Denklemler', 'Eşitsizlikler', 'Üçgenler', 'Eşlik ve Benzerlik', 'Dönüşüm Geometrisi', 'Geometrik Cisimler'] },
+                { id: 'fen', name: 'Fen Bilimleri', icon: 'FlaskConical', color: 'text-teal-500 dark:text-teal-400', bg: 'bg-teal-50 dark:bg-teal-500/20', units: ['Mevsimlerin Oluşumu ve İklim', 'DNA ve Genetik Kod', 'Basınç', 'Madde ve Endüstri', 'Basit Makineler', 'Enerji Dönüşümleri', 'Elektrik Yükleri'] },
+                { id: 'inkilap', name: 'İnkılap Tarihi', icon: 'Landmark', color: 'text-orange-500 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-500/20', units: ['Bir Kahraman Doğuyor', 'Milli Uyanış', 'Ya İstiklal Ya Ölüm', 'Atatürkçülük', 'Demokratikleşme Çabaları', 'Dış Politikası', 'Atatürk’ün Ölümü'] },
+                { id: 'din', name: 'Din Kültürü', icon: 'Moon', color: 'text-rose-500 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-500/20', units: ['Kader İnancı', 'Zekat ve Sadaka', 'Din ve Hayat', 'Hz. Muhammed’in Örnekliği', 'Kur’an-ı Kerim Özellikleri'] },
+                { id: 'ingilizce', name: 'İngilizce', icon: 'Languages', color: 'text-cyan-500 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-500/20', units: ['Friendship', 'Teen Life', 'In The Kitchen', 'On The Phone', 'The Internet', 'Adventures', 'Tourism', 'Chores', 'Science', 'Natural Forces'] }
             ],
             '7': [
-                { id: 'turkce', name: 'Türkçe', icon: 'BookOpen', color: 'text-emerald-600', bg: 'bg-emerald-50', units: ['Sözcükte Anlam', 'Cümlede Anlam', 'Parçada Anlam', 'Fiiller (Kip ve Anlam)', 'Zarflar', 'Ek Fiiller', 'Yazım Kuralları', 'Noktalama İşaretleri'] },
-                { id: 'matematik', name: 'Matematik', icon: 'Calculator', color: 'text-indigo-500', bg: 'bg-indigo-50', units: ['Tam Sayılarla İşlemler', 'Rasyonel Sayılar', 'Cebirsel İfadeler', 'Eşitlik ve Denklem', 'Oran ve Orantı', 'Yüzdeler', 'Doğrular ve Açılar', 'Çokgenler'] },
-                { id: 'fen', name: 'Fen Bilimleri', icon: 'FlaskConical', color: 'text-teal-500', bg: 'bg-teal-50', units: ['Güneş Sistemi ve Ötesi', 'Hücre ve Bölünmeler', 'Kuvvet ve Enerji', 'Saf Madde ve Karışımlar', 'Işığın Madde ile Etkileşimi', 'Canlılarda Üreme, Büyüme ve Gelişme', 'Elektrik Devreleri'] },
-                { id: 'sosyal', name: 'Sosyal Bilgiler', icon: 'Globe', color: 'text-orange-500', bg: 'bg-orange-50', units: ['Birey ve Toplum', 'Kültür ve Miras', 'İnsanlar Yerler ve Çevreler', 'Bilim Teknoloji ve Toplum', 'Ekonomi ve Sosyal Hayat'] },
-                { id: 'din', name: 'Din Kültürü', icon: 'Moon', color: 'text-rose-500', bg: 'bg-rose-50', units: ['Melek ve Ahiret İnancı', 'Hac ve Kurban', 'Ahlaki Davranışlar', 'Hz. Muhammed’in Örnekliği'] },
-                { id: 'ingilizce', name: 'İngilizce', icon: 'Languages', color: 'text-cyan-500', bg: 'bg-cyan-50', units: ['Appearance and Personality', 'Biographies', 'Sports', 'Wild Animals', 'Television', 'Celebrations', 'Dreams'] }
+                { id: 'turkce', name: 'Türkçe', icon: 'BookOpen', color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/20', units: ['Sözcükte Anlam', 'Cümlede Anlam', 'Parçada Anlam', 'Fiiller (Kip ve Anlam)', 'Zarflar', 'Ek Fiiller', 'Yazım Kuralları', 'Noktalama İşaretleri'] },
+                { id: 'matematik', name: 'Matematik', icon: 'Calculator', color: 'text-indigo-500 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-500/20', units: ['Tam Sayılarla İşlemler', 'Rasyonel Sayılar', 'Cebirsel İfadeler', 'Eşitlik ve Denklem', 'Oran ve Orantı', 'Yüzdeler', 'Doğrular ve Açılar', 'Çokgenler'] },
+                { id: 'fen', name: 'Fen Bilimleri', icon: 'FlaskConical', color: 'text-teal-500 dark:text-teal-400', bg: 'bg-teal-50 dark:bg-teal-500/20', units: ['Güneş Sistemi ve Ötesi', 'Hücre ve Bölünmeler', 'Kuvvet ve Enerji', 'Saf Madde ve Karışımlar', 'Işığın Madde ile Etkileşimi', 'Canlılarda Üreme, Büyüme ve Gelişme', 'Elektrik Devreleri'] },
+                { id: 'sosyal', name: 'Sosyal Bilgiler', icon: 'Globe', color: 'text-orange-500 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-500/20', units: ['Birey ve Toplum', 'Kültür ve Miras', 'İnsanlar Yerler ve Çevreler', 'Bilim Teknoloji ve Toplum', 'Ekonomi ve Sosyal Hayat'] },
+                { id: 'din', name: 'Din Kültürü', icon: 'Moon', color: 'text-rose-500 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-500/20', units: ['Melek ve Ahiret İnancı', 'Hac ve Kurban', 'Ahlaki Davranışlar', 'Hz. Muhammed’in Örnekliği'] },
+                { id: 'ingilizce', name: 'İngilizce', icon: 'Languages', color: 'text-cyan-500 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-500/20', units: ['Appearance and Personality', 'Biographies', 'Sports', 'Wild Animals', 'Television', 'Celebrations', 'Dreams'] }
             ]
         };
 
@@ -94,7 +136,7 @@
         };
 
         // IMAGE COMPRESSION UTILITY
-        const compressImage = (file, maxWidth = 1000, quality = 0.6) => {
+        const compressImage = (file, maxWidth = 1600, quality = 0.8) => {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -142,8 +184,11 @@
             const [showAnswer, setShowAnswer] = useState(false);
             const [fullScreenImage, setFullScreenImage] = useState(null);
             const [cropImageSrc, setCropImageSrc] = useState(null);
+            const [updatingQuestion, setUpdatingQuestion] = useState(null);
+            const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
             
             const fileInputRef = useRef(null);
+            const updateFileInputRef = useRef(null);
             const cropperRef = useRef(null);
             const cropperInstance = useRef(null);
 
@@ -152,6 +197,12 @@
                 if (saved) setLocalQs(JSON.parse(saved));
                 auth.onAuthStateChanged(u => setUser(u));
             }, []);
+
+            useEffect(() => {
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') document.documentElement.classList.add('dark');
+                else document.documentElement.classList.remove('dark');
+            }, [theme]);
 
             useEffect(() => {
                 localStorage.setItem('grade', grade);
@@ -204,11 +255,21 @@
             const allQs = useMemo(() => user ? [...localQs, ...cloudQs] : localQs, [user, localQs, cloudQs]);
 
             const filteredQuestions = useMemo(() => {
-                return allQs.filter(q => {
+                const filtered = allQs.filter(q => {
                     const gMatch = q.grade === grade || !q.grade;
                     const sMatch = !dashboardFilterId || q.subjectId === dashboardFilterId;
                     const uMatch = !selectedUnitTag || q.unitName === selectedUnitTag;
                     return gMatch && sMatch && uMatch;
+                });
+
+                return filtered.sort((a, b) => {
+                    const wA = a.isUnderstood ? 3 : (a.isImportant ? 2 : 1);
+                    const wB = b.isUnderstood ? 3 : (b.isImportant ? 2 : 1);
+                    if (wA !== wB) return wA - wB;
+                    
+                    const tA = a.createdAt?.seconds || 0;
+                    const tB = b.createdAt?.seconds || 0;
+                    return tB - tA;
                 });
             }, [dashboardFilterId, selectedUnitTag, allQs, grade]);
 
@@ -239,15 +300,50 @@
                 e.target.value = '';
             };
 
-            const handleCrop = () => {
+            const handleUpdateFileSelect = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                setUpdatingQuestion(viewingQuestion);
+                setLoading(true);
+                setStatusText("Görüntü İşleniyor...");
+                const compressed = await compressImage(file);
+                setCropImageSrc(compressed.dataUrl);
+                setLoading(false);
+                setStatusText("");
+                e.target.value = '';
+            };
+
+            const handleCrop = async () => {
                 if (cropperInstance.current) {
                     const canvas = cropperInstance.current.getCroppedCanvas({
-                        maxWidth: 800,
-                        maxHeight: 800,
+                        maxWidth: 1600,
+                        maxHeight: 1600,
                         fillColor: '#fff',
                     });
-                    setPreview(canvas.toDataURL('image/jpeg', 0.6));
-                    setCropImageSrc(null);
+                    const newImageUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    
+                    if (updatingQuestion) {
+                        if (viewingQuestion && viewingQuestion.id === updatingQuestion.id) {
+                            setViewingQuestion(prev => ({ ...prev, imageUrl: newImageUrl }));
+                        }
+                        setUpdatingQuestion(null);
+                        setCropImageSrc(null);
+                        
+                        try {
+                            if (updatingQuestion.isCloud) {
+                                await db.collection('questions').doc(updatingQuestion.id).update({ imageUrl: newImageUrl });
+                            } else {
+                                const upd = localQs.map(q => q.id === updatingQuestion.id ? { ...q, imageUrl: newImageUrl } : q);
+                                localStorage.setItem('hata_v6', JSON.stringify(upd));
+                                setLocalQs(upd);
+                            }
+                        } catch (err) {
+                            alert("Fotoğraf güncellenirken hata oluştu: " + err.message);
+                        }
+                    } else {
+                        setPreview(newImageUrl);
+                        setCropImageSrc(null);
+                    }
                 }
             };
 
@@ -315,6 +411,31 @@
                 }
             };
 
+            const toggleStatus = async (q, type) => {
+                let newImportant = q.isImportant || false;
+                let newUnderstood = q.isUnderstood || false;
+
+                if (type === 'important') {
+                    newImportant = !q.isImportant;
+                    if (newImportant) newUnderstood = false;
+                } else if (type === 'understood') {
+                    newUnderstood = !q.isUnderstood;
+                    if (newUnderstood) newImportant = false;
+                }
+
+                if (q.isCloud) {
+                    try {
+                        await db.collection('questions').doc(q.id).update({ isImportant: newImportant, isUnderstood: newUnderstood });
+                    } catch (err) {
+                        alert("Güncellenirken hata oluştu: " + err.message);
+                    }
+                } else {
+                    const upd = localQs.map(item => item.id === q.id ? { ...item, isImportant: newImportant, isUnderstood: newUnderstood } : item);
+                    localStorage.setItem('hata_v6', JSON.stringify(upd));
+                    setLocalQs(upd);
+                }
+            };
+
             const jumpToTopic = (sId, uName) => {
                 setDashboardFilterId(sId);
                 setSelectedUnitTag(uName);
@@ -341,6 +462,9 @@
                                 </div>
                             </nav>
                             <div className="w-[180px] flex justify-end items-center gap-3">
+                                <button onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')} className="p-2 text-slate-400 hover:text-primary-600 transition-colors bg-slate-50 rounded-full">
+                                    {theme === 'dark' ? <Icon name="Sun" className="w-4 h-4" /> : <Icon name="Moon" className="w-4 h-4" />}
+                                </button>
                                 {!user ? <button onClick={() => auth.signInWithPopup(googleProvider).catch(err => alert("Giriş yapılamadı: " + err.message))} className="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-primary-600 transition-colors">GİRİŞ</button> : <button onClick={() => auth.signOut()} className="text-[10px] font-black text-red-500 uppercase tracking-widest hover:text-red-700 transition-colors">ÇIKIŞ</button>}
                                 <button onClick={() => setIsModalOpen(true)} className="btn-primary py-2.5 px-6"><Icon name="Plus" className="w-4 h-4" /> <span className="hidden lg:inline uppercase">SORU EKLE</span></button>
                             </div>
@@ -359,7 +483,7 @@
                                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-6 gap-2 mb-10">
                                     {activeCurriculum.map(s => (
                                         <div key={s.id} onClick={() => { setDashboardFilterId(dashboardFilterId === s.id ? null : s.id); setSelectedUnitTag(null); }} 
-                                            className={`subject-card ${dashboardFilterId === s.id ? 'ring-4 ring-primary-500/20 bg-primary-50 border-primary-100' : ''}`}>
+                                            className={`subject-card ${dashboardFilterId === s.id ? 'ring-4 ring-primary-500/20 bg-primary-50 dark:bg-primary-500/10 border-primary-100 dark:border-primary-500/30' : ''}`}>
                                             <div className={`${s.bg} ${s.color} p-4 rounded-full mb-1`}><Icon name={s.icon} className="w-6 h-6" /></div>
                                             <div className="text-center px-1">
                                                 <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none truncate w-full">{s.name}</p>
@@ -372,11 +496,19 @@
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
                                     {filteredQuestions.map(q => (
                                         <div key={q.id} onClick={() => { setViewingQuestion(q); setShowAnswer(false); }} className="glass-card overflow-hidden group hover:shadow-2xl cursor-pointer transition-all">
-                                            <div className="relative aspect-video bg-slate-100">
-                                                <img src={q.imageUrl} className="w-full h-full object-cover" loading="lazy" />
+                                            <div className="relative aspect-video bg-slate-100 dark:bg-slate-800">
+                                                <img src={q.imageUrl} className={`w-full h-full object-cover transition-all ${q.isUnderstood ? 'grayscale opacity-70' : ''}`} loading="lazy" />
                                                 <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
                                                     <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg ${activeCurriculum.find(s=>s.id===q.subjectId)?.bg || 'bg-slate-50'} ${activeCurriculum.find(s=>s.id===q.subjectId)?.color || 'text-slate-500'}`}>{activeCurriculum.find(s=>s.id===q.subjectId)?.name || 'Ders'}</span>
-                                                    {q.unitName && <span className="px-2.5 py-1 rounded-full text-[8px] font-black uppercase bg-white/90 text-slate-700 shadow-md">{q.unitName}</span>}
+                                                    {q.unitName && <span className="px-2.5 py-1 rounded-full text-[8px] font-black uppercase bg-white/90 dark:bg-black/80 text-slate-700 dark:text-slate-200 shadow-md">{q.unitName}</span>}
+                                                </div>
+                                                <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                                                    <button onClick={(e) => { e.stopPropagation(); toggleStatus(q, 'important'); }} className={`p-2 rounded-full backdrop-blur-md shadow-lg transition-all border border-white/20 ${q.isImportant ? 'bg-yellow-400 text-white' : 'bg-white/80 dark:bg-black/50 text-slate-400 hover:text-yellow-500'}`}>
+                                                        <Icon name="Star" className={`w-4 h-4 ${q.isImportant ? 'fill-current' : ''}`} />
+                                                    </button>
+                                                    <button onClick={(e) => { e.stopPropagation(); toggleStatus(q, 'understood'); }} className={`p-2 rounded-full backdrop-blur-md shadow-lg transition-all border border-white/20 ${q.isUnderstood ? 'bg-emerald-500 text-white' : 'bg-white/80 dark:bg-black/50 text-slate-400 hover:text-emerald-500'}`}>
+                                                        <Icon name="Check" className="w-4 h-4 stroke-[3]" />
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div className="p-6">
@@ -404,7 +536,6 @@
                                         </div>
                                     </div>
                                     <div className="lg:col-span-2 glass-card p-10 bg-white">
-                                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-10 italic border-b-2 border-slate-50 pb-4 inline-block">Müfredat Dağılımı</h3>
                                         <div className="space-y-6">
                                             {stats.subjectStats.map(s => (
                                                 <div key={s.id} className="border-b border-slate-50 last:border-none pb-6">
@@ -429,7 +560,7 @@
                                                                 <div key={u.name} onClick={() => jumpToTopic(s.id, u.name)} className="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100 text-[10px] font-black text-slate-500 uppercase tracking-widest italic hover:bg-white hover:border-primary-500 hover:text-primary-600 transition-all cursor-pointer">
                                                                     <span>{u.name}</span>
                                                                     <div className="flex items-center gap-3">
-                                                                        <span className="bg-primary-50 px-2.5 py-1 rounded-lg text-primary-600 font-black">{u.count}</span>
+                                                                        <span className="bg-primary-50 dark:bg-primary-500/20 px-2.5 py-1 rounded-lg text-primary-600 dark:text-primary-400 font-black">{u.count}</span>
                                                                         <Icon name="ArrowRight" className="w-3 h-3" />
                                                                     </div>
                                                                 </div>
@@ -452,7 +583,7 @@
                                 <h3 className="text-3xl font-black text-slate-900 mb-8 tracking-tighter uppercase italic text-center font-sans tracking-tight">SORU KAYDI</h3>
                                 
                                 {statusText && (
-                                    <div className="mb-4 bg-primary-50 border border-primary-100 p-3 rounded-xl text-center">
+                                    <div className="mb-4 bg-primary-50 dark:bg-primary-500/10 border border-primary-100 dark:border-primary-500/30 p-3 rounded-xl text-center">
                                         <p className="text-[10px] font-black text-primary-600 uppercase tracking-widest animate-pulse">{statusText}</p>
                                     </div>
                                 )}
@@ -464,7 +595,7 @@
                                             {activeCurriculum.map(s => (
                                                 <label key={s.id} className="cursor-pointer">
                                                     <input type="radio" name="subjectId" value={s.id} checked={selectedSubjectId === s.id} onChange={(e) => setSelectedSubjectId(e.target.value)} className="peer sr-only" />
-                                                    <div className="py-4 border-2 border-slate-50 rounded-2xl peer-checked:border-primary-500 peer-checked:bg-primary-50 text-[10px] font-black text-slate-400 peer-checked:text-primary-700 text-center transition-all uppercase italic truncate px-1">{s.name}</div>
+                                                    <div className="py-4 border-2 border-slate-50 rounded-2xl peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-500/20 text-[10px] font-black text-slate-400 peer-checked:text-primary-700 dark:peer-checked:text-primary-400 text-center transition-all uppercase italic truncate px-1">{s.name}</div>
                                                 </label>
                                             ))}
                                         </div>
@@ -503,7 +634,7 @@
                                             {['A', 'B', 'C', 'D'].map(opt => (
                                                 <label key={opt} className="cursor-pointer">
                                                     <input type="radio" name="correctAnswer" value={opt} className="peer sr-only" />
-                                                    <div className="py-4 border-2 border-slate-50 rounded-2xl peer-checked:border-primary-500 peer-checked:bg-primary-50 text-[14px] font-black text-slate-400 peer-checked:text-primary-700 text-center transition-all uppercase">{opt}</div>
+                                                    <div className="py-4 border-2 border-slate-50 rounded-2xl peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-500/20 text-[14px] font-black text-slate-400 peer-checked:text-primary-700 dark:peer-checked:text-primary-400 text-center transition-all uppercase">{opt}</div>
                                                 </label>
                                             ))}
                                         </div>
@@ -520,16 +651,22 @@
                     )}
 
                     {viewingQuestion && (
-                        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-slate-900/98 backdrop-blur-xl overflow-y-auto" onClick={() => setViewingQuestion(null)}>
+                        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/98 backdrop-blur-xl overflow-y-auto" onClick={() => setViewingQuestion(null)}>
                             <div className="max-w-4xl w-full flex flex-col items-center gap-6 animate-[slideUp_0.3s_ease-out]" onClick={e => e.stopPropagation()}>
                                 <img src={viewingQuestion.imageUrl} onClick={(e) => { e.stopPropagation(); setFullScreenImage(viewingQuestion.imageUrl); }} className="w-full h-auto max-h-[75vh] object-contain rounded-[2rem] shadow-2xl border-2 border-white/5 cursor-zoom-in hover:scale-[1.02] transition-transform" />
                                 <div className="glass-card p-12 w-full max-w-2xl bg-white relative text-center">
                                     <button onClick={() => setViewingQuestion(null)} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-all z-10">
                                         <Icon name="X" className="w-6 h-6" />
                                     </button>
-                                    <button onClick={async (e) => { e.stopPropagation(); if(confirm("Silinsin mi?")){ if(viewingQuestion.isCloud) await db.collection('questions').doc(viewingQuestion.id).delete(); else { const upd = localQs.filter(x => x.id !== viewingQuestion.id); localStorage.setItem('hata_v6', JSON.stringify(upd)); setLocalQs(upd); } setViewingQuestion(null); } }} className="absolute bottom-4 right-4 p-3 text-red-400 hover:text-white hover:bg-red-500 rounded-2xl transition-all shadow-sm z-10" title="Soruyu Sil">
-                                        <Icon name="Trash2" className="w-5 h-5" />
-                                    </button>
+                                    <div className="absolute bottom-4 right-4 flex gap-2 z-10">
+                                        <button onClick={(e) => { e.stopPropagation(); updateFileInputRef.current.click(); }} className="p-3 text-blue-400 hover:text-white hover:bg-blue-500 rounded-2xl transition-all shadow-sm" title="Fotoğrafı Değiştir">
+                                            <Icon name="ImagePlus" className="w-5 h-5" />
+                                        </button>
+                                        <button onClick={async (e) => { e.stopPropagation(); if(confirm("Silinsin mi?")){ if(viewingQuestion.isCloud) await db.collection('questions').doc(viewingQuestion.id).delete(); else { const upd = localQs.filter(x => x.id !== viewingQuestion.id); localStorage.setItem('hata_v6', JSON.stringify(upd)); setLocalQs(upd); } setViewingQuestion(null); } }} className="p-3 text-red-400 hover:text-white hover:bg-red-500 rounded-2xl transition-all shadow-sm" title="Soruyu Sil">
+                                            <Icon name="Trash2" className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                    <input type="file" accept="image/*" ref={updateFileInputRef} className="hidden" onChange={handleUpdateFileSelect} />
                                     
                                     <div className="absolute -top-5 left-1/2 -translate-x-1/2 flex gap-3">
                                         <span className="px-8 py-2.5 bg-primary-600 text-white rounded-full text-[11px] font-black uppercase shadow-2xl italic tracking-widest">{viewingQuestion.grade}. SINIF</span>
@@ -540,7 +677,7 @@
                                     {viewingQuestion.correctAnswer && (
                                         <div className="mt-8 flex justify-center">
                                             {!showAnswer ? (
-                                                <button onClick={(e) => { e.stopPropagation(); setShowAnswer(true); }} className="px-8 py-4 bg-primary-50 text-primary-600 font-black rounded-3xl uppercase text-[12px] tracking-widest border-2 border-primary-100 hover:bg-primary-500 hover:text-white transition-all">Cevabı Göster</button>
+                                                <button onClick={(e) => { e.stopPropagation(); setShowAnswer(true); }} className="px-8 py-4 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 font-black rounded-3xl uppercase text-[12px] tracking-widest border-2 border-primary-100 dark:border-primary-500/30 hover:bg-primary-500 hover:text-white transition-all">Cevabı Göster</button>
                                             ) : (
                                                 <div className="px-10 py-5 bg-primary-600 text-white font-black rounded-3xl uppercase text-2xl shadow-xl flex flex-col items-center gap-1 animate-[fadeIn_0.3s_ease-out]">
                                                     <span className="text-[10px] tracking-widest opacity-80">DOĞRU CEVAP</span>
@@ -566,11 +703,11 @@
 
                     {cropImageSrc && (
                         <div className="fixed inset-0 z-[150] flex flex-col items-center justify-center bg-black/98 backdrop-blur-xl p-4 animate-[fadeIn_0.3s_ease-out]">
-                            <div className="w-full h-[70vh] max-w-4xl relative bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl mb-8 border border-white/10">
+                            <div className="w-full h-[70vh] max-w-4xl relative bg-black rounded-[2rem] overflow-hidden shadow-2xl mb-8 border border-white/10">
                                 <img ref={cropperRef} src={cropImageSrc} style={{ display: 'block', maxWidth: '100%' }} />
                             </div>
                             <div className="flex gap-4">
-                                <button onClick={() => setCropImageSrc(null)} className="px-10 py-5 bg-slate-800 text-slate-300 font-black rounded-3xl uppercase tracking-widest text-[11px] hover:bg-slate-700 transition-all border border-white/10">İPTAL</button>
+                                <button onClick={() => { setCropImageSrc(null); setUpdatingQuestion(null); }} className="px-10 py-5 bg-slate-800 text-slate-300 font-black rounded-3xl uppercase tracking-widest text-[11px] hover:bg-slate-700 transition-all border border-white/10">İPTAL</button>
                                 <button onClick={handleCrop} className="px-14 py-5 bg-primary-600 text-white font-black rounded-3xl uppercase tracking-widest text-[11px] shadow-xl hover:bg-primary-500 transition-all">KIRP ve ONAYLA</button>
                             </div>
                         </div>
